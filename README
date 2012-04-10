@@ -1,0 +1,18 @@
+Presentasjon
+  Litt om at Clojure er en Lisp, hvilken type lisp osv       
+  Kodeeksempler (pluss minus), vise frem prefiks notasjon osv
+    Nøsting
+  Datatyper/sequence api
+  Enkel collection-manipulering
+   Vise frem map()
+   Lage wordcount i clojure!
+   Persistent datastructures, helst med eksempel
+  Eksempel på bruk av tilstand
+    Server/DB som eksempel?
+  Implementert på JVM, snakke litt om økosystemet, class-filer osv       
+    Java Interop
+    Enkelt JFrame-eksempel?
+  Litt om hvordan komme generelt komme i gang
+    tryclojure.com?
+  Oppgaver (mellom slides, helst)
+  Gjerne et motiverende/inspirerende/something eksempel til slutt
