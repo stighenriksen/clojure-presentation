@@ -37,14 +37,116 @@
 
 ---
 
-# Hva betyr det at Clojure er en Lisp?
+# Clojure er en Lisp-dialekt
 
 * Prefiks-notasjon
-  * ... så i stedet for 1 + 1 så (+ 1 1)
 * Lite syntaks i kjernespråket sammenlinket med andre språk.
-* "Alt" er lister.
-  * "Lisp" - "LISt Processing"
 * All programkode skrives med nøstede lister (S-expressions)
+  * "LISt Processing"
+
+---
+
+# Eksempler
+
+
+    .lisp
+    (+ 1 1)  ;; 2
+
+    ; definisjon
+    (defn hello-world [] "Hello world!")
+    ; kall
+    (hello-world) 
+
+    ;; fakultet 
+    (defn fact [x]
+      (loop [n x f 1]
+        (if (= n 1)
+          f
+          (recur (dec n) (* f n)))))
+
+
+---
+
+# Hvorfor Lisp?
+
+  Det er lite syntaks, og det faktum at koden består av lister gir muligheter til å utvide språket:
+
+    .lisp
+    (defmacro unless [expr body] `(if ~expr nil ~body))
+
+---
+
+# Datatyper
+
+nil er tilsvarende Java null. 
+
+Støtter alle JVM-primitivene (inkludert BigInteger og BigDecimal)
+
+Har en egen Ratio-type: (/ 22 7) gir 22/7
+
+Strings og Characters er henholdsvis Java Strings og Java Characters
+
+Keywords: Evaluarer til seg selv. Skrives med kolon foran: :someKeywordb
+
+Symboler er identifiers som referer til et eller annet. I Clojure blir de brukt til
+å referere til funksjonsparametre, let-bindinger, klassenavn og globale variable.
+
+---
+
+# Collections!
+
+Vectors: [1 2]
+
+Maps: {:a 1 :b 2}
+
+Sets: #{1 2}
+
+---
+
+
+# Seq
+
+Alle collections i Clojure implementerer Seq-grensesnittet. En seq er en logisk liste,
+og tilbyr metoder for å aksessere elementer.
+
+Eksempel:
+
+    .lisp
+    (map #(* 2 %) [1 2 3 4]) ;; (2 4 6 8)
+
+    (map #(* 2 %) #{1 2 3 4}) ;; (2 4 6 8)
+
+---
+
+# Persistente datastrukturer (whiteboard?)
+
+---
+
+# Tilstand
+
+    .lisp
+    (defonce server (run-jetty #'main-routes {:port 8080 :join? false}))
+
+---
+
+# JVMen og Clojure (forklar ut fra dette eksempelet kanskje?)
+
+    .lisp
+    (import 'javax.swing.JFrame)
+    (def frame (JFrame. "Hello Frame"))
+    (.setSize frame 200 200)
+    (.setVisible frame true)
+    
+    (import 'javax.swing.JPanel)
+    (def panel (JPanel.))
+    (.setContentPane frame panel)
+    
+    (import 'javax.swing.JButton)
+    (def button (JButton. "Click me!"))
+    (.add panel button)
+    
+    (.revalidate button)
+
 
 ---
 
