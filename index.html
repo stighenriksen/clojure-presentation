@@ -19,7 +19,7 @@
 # Agenda
 
 1. Clojure og Lisp
-2. Datastrukturer
+2. Innebygde datastrukturer
 3. Collections og sequences
 4. Funksjonell programmering
 5. Tilstand
@@ -52,29 +52,15 @@
 
 ---
 
-# Hvorfor Lisp?
+# Innebygde datastrukturer
 
-  Det er lite syntaks, og det faktum at koden består av lister gir muligheter til å utvide språket:
-
-    .lisp
-    (defmacro unless [expr body] `(if ~expr nil ~body))
-
----
-
-# Datatyper
-
-nil er tilsvarende Java null. 
-
-Støtter alle JVM-primitivene (inkludert BigInteger og BigDecimal)
-
-Har en egen Ratio-type: (/ 22 7) gir 22/7
-
-Strings og Characters er henholdsvis Java Strings og Java Characters
-
-Keywords: Evaluarer til seg selv. Skrives med kolon foran: :someKeywordb
-
-Symboler er identifiers som referer til et eller annet. I Clojure blir de brukt til
-å referere til funksjonsparametre, let-bindinger, klassenavn og globale variable.
+* nil : Mulig verdi for enhver datatype i Clojure. Alt annet enn nil og false er logisk sant.
+* Tall: Full støtte for JVM-primitivene
+* Ratio: (/ 22 7) gir 22/7
+* Strings og Characters: Clojure strings og characters er lik Java strings og Characters
+* Keywords: Evaluerer til seg selv. Skrives med kolon foran: :someKeyword
+* Symboler: Referanser til funksjonsparametre, bindinger, klassenavn og globale variabler.
+* Collections: Lists, Vectors, Maps, Sets
 
 ---
 
