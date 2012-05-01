@@ -95,13 +95,21 @@
 
 # Innebygde datastrukturer
 
-* nil : Mulig verdi for enhver datatype i Clojure. Alt annet enn nil og false er logisk sant.
-* Tall: Full støtte for JVM-primitivene
-* Ratio: (/ 22 7) gir 22/7
-* Strings og Characters: Clojure strings og characters er lik Java strings og Characters
-* Keywords: Evaluerer til seg selv. SKrives med kolon,f.eks :someKeyword
-* Symboler: Referanser til funksjonsparametre, bindinger, klassenavn og globale variabler.
-* Collections: Lists, Vectors, Maps, Sets
+nil 
+
+    (if nil "nil evaluates to true" "nil evaluates to false")
+
+Tall: Full støtte for JVM-primitivene
+
+    (/ 22 7) gir 22/7
+
+Strings og Characters samme som Java sine Strings og Characters
+
+    (str "Hello" " world!")
+
+Keywords:
+
+    (:a {:a 1 :b 2}) ; 1
 
 ---
 
