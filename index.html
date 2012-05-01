@@ -195,12 +195,70 @@ Gjør at kan ha få datastrukturer med mange tilhørende operasjoner.
 
 # Tilstand
 
-    .lisp
-    (defonce server (run-jetty #'main-routes {:port 8080 :join? false}))
+Funksjonell programmering er bra, men hva med lagring av tilstand?
+
+* Vars
+* Refs
+* Agents
+* Atoms
+
+Disse forskjellige typene forsøker å løse samtidigs-problemer man ofte møter på ved tilstandsoppdateringer.
 
 ---
 
-# JVMen og Clojure (forklar ut fra dette eksempelet kanskje?)
+# Vars
+
+* Mekanisme for å referere til en minnelokasjon. Referansen kan bindes på nytt. 
+
+
+    .lisp
+    (def a 1) ; 'lager' en Var og gir en initiell verdi, a = 1
+    (def a (+ 1 a)) ; a = 2
+
+Kan ses på som en global variabel, men bruk av binding-form gir mulighet for å tråd-lokale verdier:
+
+    .lisp
+    (def ^:dynamic x 1)
+    (binding [x 2] (println x)) ; 2
+    (println x)                 ; 1    
+
+---
+
+# Refs
+
+Brukes for tilstandsoppdatering som må være synkronisert med transaksjonshåndtering mellom tråder.
+
+Eksempel på bruk: Innsetting av penger på konto
+
+---
+
+# Agents
+
+Brukes for tilstandsoppdatering hvor det ikke er viktig når selve oppdateringen skjer.
+
+    .lisp
+    (def x (agent)) 
+    (send x + 1) ; #<Agent@2db6235b: 1>
+
+Eksempel på bruk: Skriving til logg
+
+---
+
+# Atoms
+
+Brukes for synkron tilstandsoppdatering som ikke skal være delt med andre
+
+    .lisp
+    (def x (atom 0))
+    (swap! x + 1) ; 1
+
+Eksempel på bruk: Memoisering
+
+---
+
+
+
+# Java interop
 
     .lisp
     (import 'javax.swing.JFrame)
