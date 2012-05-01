@@ -58,22 +58,53 @@
 * Tall: Full støtte for JVM-primitivene
 * Ratio: (/ 22 7) gir 22/7
 * Strings og Characters: Clojure strings og characters er lik Java strings og Characters
-* Keywords: Evaluerer til seg selv. Skrives med kolon foran: :someKeyword
+* Keywords: Evaluerer til seg selv. SKrives med kolon,f.eks :someKeyword
 * Symboler: Referanser til funksjonsparametre, bindinger, klassenavn og globale variabler.
 * Collections: Lists, Vectors, Maps, Sets
 
 ---
 
-# Collections!
+# Lists
 
-Vectors: [1 2]
+    .lisp
+    (= '(1 2 3) (list 1 2 3))  ;true
+      
+    (peek '(1 2 3)) ; 1 
 
-Maps: {:a 1 :b 2}
+    (pop '(1 2 3)) ; (2 3)
 
-Sets: #{1 2}
+    (list? '(1 2 3)) ; true
+
 
 ---
 
+# Vectors
+
+Vectors i Clojure er collections som er indeksert av sammenhengende (contiguous heltall.
+
+    .lisp
+    (= [1 2 3] (vector 1 2 3))
+
+    (get [1 2 3] 0) ; 1
+
+    (nth [1 2 3] 0) ; 1
+
+    (peek [1 2 3])  ; 3
+
+    (pop [1 2 3])  ; [1 2]
+
+    (vector? [1 2 3]) ; true
+
+---
+
+# Maps
+
+---
+
+
+# Sets
+
+---
 
 # Seq
 
