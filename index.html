@@ -120,8 +120,6 @@
 
 # Vectors
 
-Vectors i Clojure er collections som er indeksert av sammenhengende (contiguous heltall.
-
     (= [1 2 3] (vector 1 2 3)) ; true
 
     (get [1 2 3] 0) ; 1
@@ -167,7 +165,6 @@ Vectors i Clojure er collections som er indeksert av sammenhengende (contiguous 
 
 # Seq-grensesnittet, motivasjon
 
-Vi har et antall objekter med en eller annen verdi som skal økes:
 
     .java
     // eks: [0 1 2 3] blir til [0 2 4 6]
@@ -179,34 +176,27 @@ Vi har et antall objekter med en eller annen verdi som skal økes:
       return newArray;
     }
 
-
-Det vi gjør er at for en gitt samling med data (enten det er tall, strings eller objekter) så
-må vi finne ut hvordan vi får tilgang til elementene i samlingen. Dette gjøres som regel ved å:
-   
-1. Finn ut hvordan man får tilgang til et enkelt element i samlingen
-2. Bruk dette i en for-loop som inneholder en eller annen operasjon som gjøres for hvert element
-
-
 ---
+
 
 #Seq-grensesnittet, forts.
 
-En nyttig abstraksjon for å gjøre dette finner vi i map-funksjonen:
+Nyttig abstraksjon for å gjøre liknende operasjoner finner vi i map:
 
     (map (fn[a] (* 2 a)) [0 1 2 3]) ; (0 2 4 6)
 
-Men, dette fungerer ikke bare for vektorer:
+Fungerer også for andre datastrukturerer:
 
     (map (fn[a] (* 2 a)) '(0 1 2 3)) ; (0 2 4 6)
 
-map-funksjonen støtter alle kolleksjoner som implementerer Seq-grensesnittet, noe både vektorer og lister gjør!
+map-funksjonen støtter alle datastrukturer som implementerer Seq-grensesnittet, noe både vektorer og lister gjør!
 
 ---
 #Seq-grensesnittet, forts.
 
 Seq er et grensesnitt som gjør at den underliggende implementasjonen kan ses på som en logisk liste. 
 
-Gjør at kan ha få datastrukturer med mange tilhørende operasjoner.
+Gir mulighet for datastrukturer med mange tilhørende operasjoner.
 
 ---
 
@@ -219,7 +209,7 @@ Funksjonell programmering er bra, men hva med lagring av tilstand?
 * Agents
 * Atoms
 
-Disse forskjellige typene forsøker å løse samtidigs-problemer man ofte møter på ved tilstandsoppdateringer.
+Disse forskjellige typene forsøker å løse samtidigsproblemer man ofte møter på ved tilstandsoppdateringer.
 
 ---
 
@@ -232,7 +222,7 @@ Disse forskjellige typene forsøker å løse samtidigs-problemer man ofte møter
     (def a 1) ; 'lager' en Var og gir en initiell verdi, a = 1
     (def a (+ 1 a)) ; a = 2
 
-Kan ses på som en global variabel, men bruk av binding-form gir mulighet for å tråd-lokale verdier:
+Kan ses på som en global variabel, men bruk av binding-form gir mulighet å tråd-lokale verdier:
 
     .lisp
     (def ^:dynamic x 1)
