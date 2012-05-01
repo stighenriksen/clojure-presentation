@@ -72,24 +72,22 @@
 
 ---
 
-# Clojure kjører på flere platformer
+# Clojure er implementert på JVMen.red[*]
 
-* *Java Virtual Machine (JVM)*
+* Om man "oversetter" direkte fra Java kan man like gjerne bruke Java:
 
-# Eksempler
+      (def liste (new java.util.ArrayList)) ; => #<ArrayList []>
+      (. liste add 1)
+      (. liste add 2)
+      (. liste add 3)
+      ; liste => #<ArrayList [1, 2, 3]>
 
-    (+ 1 1)  ;; 2
+* Men bruke av idiomatisk Clojure kan gi det beste fra begge verdener:
 
-    (+ 1 (* 2 3)) ; 7
+      (map (memfn toUpperCase) ["a" "short" "message"])
+      ; => ("A" "SHORT" "MESSAGE")
 
-    (+ 1 
-     (+ 2 3)
-     (+ 4 
-       (* 5 6))) ; 40
-
-    (if (even? x)
-      "x is even"
-      "x is odd")
+.footnote[.red[*] En sekundær implementasjon finnes også til CLRen.]
 
 ---
 
