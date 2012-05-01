@@ -99,6 +99,20 @@ Vectors i Clojure er collections som er indeksert av sammenhengende (contiguous 
 
 # Maps
 
+    .lisp
+    (= {:a 1 :b 1} (hash-map :a 1 :b 1))
+
+    (get {:a 1 :b 1} :a) ; 1
+
+
+    ({:a 1 :b 1} :a) ; 1
+
+    (:a {:a 1 :b 1}) ; 1
+
+    (contains? {:a 1 :b 1} :a) ; true
+
+    (map? {:a 1 :b 1}) ; true
+
 ---
 
 
