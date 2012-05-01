@@ -269,28 +269,6 @@ Eksempel på bruk: Memoisering
 
 ---
 
-
-
-# Java interop
-
-    (import 'javax.swing.JFrame)
-    (def frame (JFrame. "Hello Frame"))
-    (.setSize frame 200 200)
-    (.setVisible frame true)
-    
-    (import 'javax.swing.JPanel)
-    (def panel (JPanel.))
-    (.setContentPane frame panel)
-    
-    (import 'javax.swing.JButton)
-    (def button (JButton. "Click me!"))
-    (.add panel button)
-    
-    (.revalidate button)
-
-
----
-
 .center.middle
 # Spørsmål?
 
