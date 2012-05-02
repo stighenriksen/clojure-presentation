@@ -6,7 +6,7 @@
     <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700,200' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <script src="https://raw.github.com/gnab/remark/master/remark.min.js" type="text/javascript">
-      { "highlightStyle": "monokai", "highlightLanguage": "clojure" }
+      { "highlightStyle": "monokai", "highlightLanguage": "clojure", "highlightInline": true }
     </script>
     <script type="text/javascript">
       var hljs = remark.highlighter.engine();
@@ -16,7 +16,7 @@
       .frontpage {
         background: url(images/clojure-icon.gif) no-repeat 50% 35%;
       }
-      .agenda {
+      .blur {
         background: url(images/clojure-blur.png) no-repeat bottom right;
       }
       h1, h3 {
@@ -35,8 +35,9 @@
         border-radius: 15px;
         padding: 15px 20px;
       }
-      pre .clojure .title {
+      .clojure .title {
         color: #F92672;
+        font-weight: bold;
       }
       #slideshow .slide .content code { font-family: 'Inconsololata', monospace; }
       .red {
@@ -64,7 +65,7 @@
 
 ---
 
-.agenda
+.blur
 
 # Agenda
 
@@ -270,48 +271,50 @@ Tilstand oppdatert synkront, ikke i transaksjoner:
 
 ---
 
-# Makroer, motivasjon
+# Makroer
 
-Standard evaluering av lister i Clojure:
+.left-col[
+Evaluering av funksjoner:
 
     (+ (+ 2 3) (* 4 5)) 
 
-1. Evaluer (+ 2 3)
+&nbsp;&nbsp;&nbsp;&nbsp;1\. `(+ 2 3)`
 
 
     (+ 5 (* 4 5))
 
-2. Evaluer (* 4 5)
-
+&nbsp;&nbsp;&nbsp;&nbsp;2\. `(* 4 5)`
  
     (+ 5 20) 
 
-3. Evaluer + med 5 og 20 som argumenter
-
+&nbsp;&nbsp;&nbsp;&nbsp;3\. `(+ 5 20)`
 
     (+ 5 20) ; 25
+]
 
----
+.right-col[
+Evaluering av makroer:
 
-# Makroer, forts.
+    (when (file? file) (del file))
 
-If-metoden omgår denne regelen:
-    
-    (def counter (atom 0))
-    (if (= 1 1) 
-      (swap! counter inc)
-      (swap! counter inc)) 
-    ; 1
-   
-Slike unntak fra standard-evaluering gjøres med makroer!
+&nbsp;&nbsp;&nbsp;&nbsp;1\. Makro genererer ny kode:
+
+    (if (file? file) (del file))
+
+&nbsp;&nbsp;&nbsp;&nbsp;2\. `if` er innebygget funksjon
+
+    (file? file) ; => false
+
+&nbsp;&nbsp;&nbsp;&nbsp;3\. `(del file)` evalueres aldri
 
     (defmacro when [test body]
       (list 'if test body))
 
+]
+
 ---
 
-
-.center.middle
+.middle.blur
 # Spørsmål?
 
     </textarea>
