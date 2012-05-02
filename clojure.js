@@ -67,6 +67,10 @@ hljs.LANGUAGES.clojure = function(){
     keywords: {'title': {'quote': 1}},
     contains: NUMBERS.concat([STRING, VARIABLE, KEYWORD, QUOTED_LIST])
   };
+  var ANONYMOUS_FUNCTION = {
+    className: 'anonymous-function',
+    begin: '#\\(', end: '\\)'
+  };
   var LIST = {
     className: 'list',
     begin: '\\(', end: '\\)'
@@ -88,7 +92,7 @@ hljs.LANGUAGES.clojure = function(){
     endsWithParent: true, excludeEnd: true
   };
   LIST.contains = [{className: 'title', begin: LISP_IDENT_RE}, BODY];
-  BODY.contains = [QUOTED1, QUOTED2, LIST, SET, LITERAL].concat(NUMBERS).concat([STRING, COMMENT, VARIABLE, KEYWORD]);
+  BODY.contains = [QUOTED1, QUOTED2, LIST, LITERAL].concat(NUMBERS).concat([STRING, COMMENT, VARIABLE, KEYWORD]);
 
   return {
     case_insensitive: true,
@@ -99,6 +103,7 @@ hljs.LANGUAGES.clojure = function(){
         STRING,
         COMMENT,
         QUOTED1, QUOTED2,
+        ANONYMOUS_FUNCTION,
         LIST,
         VECTOR,
         SET,
