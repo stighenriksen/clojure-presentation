@@ -34,11 +34,13 @@
       .red {
         color: #F92672;
       }
-      .headnote {
-        font-family: 'Yanone Kaffeesatz';
-        font-size: 1.5em;
-        position: absolute;
-        top: 1em;
+      .left-col {
+        float: left;
+        width: 48%;
+      }
+      .right-col {
+        float: right;
+        width: 50%;
       }
       .footnote {
         position: absolute;
@@ -104,7 +106,7 @@
 
 ---
 
-# Innebygde datastrukturer (1/3)
+# Innebygde datastrukturer (1/2)
 
 * `nil` - representert ved `null`:
 
@@ -124,60 +126,63 @@
 
 ---
 
-# Innebygde datastrukturer (2/3)
+# Innebygde datastrukturer (2/2)  
 
-* Lister:
+.left-col[
+<ul>
+  <li>Lister:
+  
+    (list 1 2 3) ; => (1 2 3)
+    '(1 2 3)     ; => (1 2 3)
+  </li>
 
-      (list 1 2 3) ; => (1 2 3)
-      '(1 2 3)     ; => (1 2 3)
+</ul>
+]
+.right-col[
+<ul>
+  <li>Vektorer:
+  
+    (vec 1 2 3) ; => [1 2 3]
+    [1 2 3]     ; => [1 2 3]
+  </li>
 
-* Vektorer:
+</ul>
+]
 
-      (vec 1 2 3) ; => (1 2 3)
-      '(1 2 3)     ; => (1 2 3)
-
-* Sett:
-
-      (hash-set 1 2 3) ; => (1 2 3)
-      #{1 2 3}         ; => (1 2 3)
-
----
-
-# Innebygde datastrukturer (3/3)
+<div style="clear: both"></div>
 
 * Maps:
 
-      (hash-map :a 1 :b 2)   ;=> {:a 1, :b 2}
-      (sorted-map :b 2 :a 2) ;=> {:a 1, :b 2}
+      (hash-map :a 1 :b 2) ; => {:a 1, :b 2}
+      {:a 1 :b 2}          ; => {:a 1, :b 2}
+
+* Sett:
+
+      (hash-set 1 2 3) ; => #{1 2 3}
+      #{1 2 3}         ; => #{1 2 3}
 
 ---
 
-# Maps
+# Sekvenser
 
-    (= {:a 1 :b 1} (hash-map :a 1 :b 1)) ; true
+Felles grensesnitt implementert av **lister**, **vektorer**, **maps**, **sett** m.fl.:
 
-    (get {:a 1 :b 1} :a) ; 1
+    (first [1 2 3]) ; => 1
+    (rest  [1 2 3]) ; => (2 3)
+    (cons  1 [2 3]) ; => (1 2 3)
 
-    ({:a 1 :b 1} :a) ; 1
+Basis for bibliotek av funksjoner for sekvenser, slik som:
 
-    (:a {:a 1 :b 1}) ; 1
+    (second [1 2 3])     ; => 2
+    (nth [1 2 3] 2)      ; => 3
 
-    (contains? {:a 1 :b 1} :a) ; true
+    (rest [1 2 3])       ; => 3
+    (concat [1 2] [3 4]) ; => (1 2 3 4)
 
-    (map? {:a 1 :b 1}) ; true
-
----
-
-
-# Sets
-
-    (= #{1 2 3} (hash-set 1 2 3)) ; true
-
-    (get #{1 2 3} 1) ; 1
-
-    (contains? #{1 2 3} 1) ; true
-    
-    (set? #{1 2 3}) ; true
+    (map ...)
+    (filter ...)
+    (take ...)
+    (partition ...)
 
 ---
 

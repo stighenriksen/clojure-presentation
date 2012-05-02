@@ -71,6 +71,14 @@ hljs.LANGUAGES.clojure = function(){
     className: 'list',
     begin: '\\(', end: '\\)'
   };
+  var VECTOR = {
+    className: 'vector',
+    begin: '\\[', end: '\\]'
+  };
+  var MAP = {
+    className: 'map',
+    begin: '\\{', end: '\\}'
+  };
   var SET = {
     className: 'set',
     begin: '\\#\\{', end: '\\}'
@@ -92,7 +100,9 @@ hljs.LANGUAGES.clojure = function(){
         COMMENT,
         QUOTED1, QUOTED2,
         LIST,
-        SET
+        VECTOR,
+        SET,
+        MAP
       ])
     }
   };
