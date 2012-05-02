@@ -99,9 +99,9 @@
 
 # Innebygde datastrukturer
 
-* `nil` - representert ved JVM-`null`:
+* `nil` - representert ved `null`:
 
-      (if nil "nil evaluates to true" "nil evaluates to false")
+      (if nil "nil is true" "nil is false") ; => "nil is false"
 
 * Tall - støtter alle JVM-primitiver, samt mer eksotiske konstruksjoner:
 
@@ -109,7 +109,7 @@
 
 * Strenger og tegn - representert ved `String` og `char`:
 
-      (str "Hello" " world!")
+      (str "Hello" " world!") ; => "Hello world!"
 
 * "Keywords" - evaluerer til seg selv og brukes som nøkler, à la symboler i Ruby:
 
@@ -120,13 +120,21 @@
 .headnote[Innebygde datastrukturer]
 # Lister
 
-    (= '(1 2 3) (list 1 2 3))  ;true
-      
-    (peek '(1 2 3)) ; 1 
+* Opprett:
 
-    (pop '(1 2 3)) ; (2 3)
+      (list 1 2 3) ; => (1 2 3)
+      '(1 2 3)     ; => (1 2 3)
 
-    (list? '(1 2 3)) ; true
+* Slå sammen / del opp:
+
+      (concat '(1 2 3) (list 1 2 3)) ;=> (1 2 3 1 2 3)
+      (rest   '(1 2 3))              ;=> (2 3)
+
+* Hent ut:
+
+      (first  '(1 2 3))   ; => 1
+      (second '(1 2 3))   ; => 2
+      (nth    '(1 2 3) 2) ; => (2 3)
 
 ---
 
