@@ -275,33 +275,41 @@ Eksempel på bruk: Memoisering
 
 # Makroer, motivasjon
 
-I Clojure evaluares lister som funksjonskall:
+Standard evaluering av lister i Clojure:
 
-    (+ 1 (+ 2 3) (* 4 5)) 
-    (+ 1 5 (* 4 5) ; 2. argument evaluert
-    (+ 1 5 20) ; 3. argument evaluert
-    26         ; evaluering av funksjon med argumenter
+    (+ (+ 2 3) (* 4 5)) 
+
+1. Evaluer (+ 2 3)
+
+
+    (+ 5 (* 4 5))
+
+2. Evaluer (* 4 5)
+
+ 
+    (+ 5 20) 
+
+3. Evaluer + med 5 og 20 som argumenter
+
+
+    (+ 5 20) ; 25
+
+---
+
+# Makroer, forts.
 
 If-metoden omgår denne regelen:
     
     (def counter (atom 0))
     (if (= 1 1) 
       (swap! counter inc)
-      (swap! counter inc)) ; 1
+      (swap! counter inc)) 
+    ; 1
    
 Slike unntak fra standard-evaluering gjøres med makroer!
 
----
-
-# Makroer, forts.
-
     (defmacro when [test body]
       (list 'if test body))
-
-Kan skrives som:
-
-    (defmacro when [test body]
-      `(if ~test ~body))
 
 ---
 
