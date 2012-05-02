@@ -289,6 +289,19 @@ Slike unntak fra standard-evaluering gjøres med makroer!
 
 ---
 
+# Makroer, forts.
+
+    (defmacro when [test body]
+      (list 'if test body))
+
+Kan skrives som:
+
+    (defmacro when [test body]
+      `(if ~test ~body))
+
+---
+
+
 .center.middle
 # Spørsmål?
 
