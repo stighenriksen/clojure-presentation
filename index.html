@@ -27,6 +27,12 @@
       .red {
         color: #F92672;
       }
+      .headnote {
+        font-family: 'Yanone Kaffeesatz';
+        font-size: 1.5em;
+        position: absolute;
+        top: 1em;
+      }
       .footnote {
         position: absolute;
         bottom: 3.5em;
@@ -66,7 +72,7 @@
       (defmacro infix [left operator right]
         (list operator left right))
 
-      (infix 1 + 2) ; => (+ 1 2)
+      (infix 1 + 2) ; => (+ 1 2) => 1 + 2 = 3
 
 .footnote[.red[*] LISt Processing]
 
@@ -93,25 +99,26 @@
 
 # Innebygde datastrukturer
 
-nil 
+* `nil` - representert ved JVM-`null`:
 
-    (if nil "nil evaluates to true" "nil evaluates to false")
+      (if nil "nil evaluates to true" "nil evaluates to false")
 
-Tall: Full støtte for JVM-primitivene
+* Tall - støtter alle JVM-primitiver, samt mer eksotiske konstruksjoner:
 
-    (/ 22 7) gir 22/7
+      (/ 22 7) ; => 22/7
 
-Strings og Characters samme som Java sine Strings og Characters
+* Strenger og tegn - representert ved `String` og `char`:
 
-    (str "Hello" " world!")
+      (str "Hello" " world!")
 
-Keywords:
+* "Keywords" - evaluerer til seg selv og brukes som nøkler, à la symboler i Ruby:
 
-    (:a {:a 1 :b 2}) ; 1
+      (:a {:a 1 :b 2}) ; => 1
 
 ---
 
-# Lists
+.headnote[Innebygde datastrukturer]
+# Lister
 
     (= '(1 2 3) (list 1 2 3))  ;true
       
@@ -120,7 +127,6 @@ Keywords:
     (pop '(1 2 3)) ; (2 3)
 
     (list? '(1 2 3)) ; true
-
 
 ---
 
