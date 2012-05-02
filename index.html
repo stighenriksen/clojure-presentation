@@ -269,6 +269,26 @@ Eksempel på bruk: Memoisering
 
 ---
 
+# Makroer, motivasjon
+
+I Clojure evaluares lister som funksjonskall:
+
+    (+ 1 (+ 2 3) (* 4 5)) 
+    (+ 1 5 (* 4 5) ; 2. argument evaluert
+    (+ 1 5 20) ; 3. argument evaluert
+    26         ; evaluering av funksjon med argumenter
+
+If-metoden omgår denne regelen:
+    
+    (def counter (atom 0))
+    (if (= 1 1) 
+      (swap! counter inc)
+      (swap! counter inc)) ; 1
+   
+Slike unntak fra standard-evaluering gjøres med makroer!
+
+---
+
 .center.middle
 # Spørsmål?
 
