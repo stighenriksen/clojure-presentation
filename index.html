@@ -241,7 +241,7 @@ Kan ses på som en global variabel, men bruk av binding-form gir mulighet å tr�
 
 Brukes for tilstandsoppdatering som må være synkronisert med transaksjonshåndtering mellom tråder.
 
-Eksempel på bruk: Innsetting av penger på konto
+Eksempel på bruk: Sette inn penger på konto
 
 ---
 
@@ -253,7 +253,7 @@ Brukes for tilstandsoppdatering hvor det ikke er viktig når selve oppdateringen
     (def x (agent)) 
     (send x + 1) ; #<Agent@2db6235b: 1>
 
-Eksempel på bruk: Skriving til logg
+Eksempel på bruk: Skrive til logg
 
 ---
 
