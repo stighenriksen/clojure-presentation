@@ -19,12 +19,15 @@
       .blur {
         background: url(images/clojure-blur.png) no-repeat bottom right;
       }
-      h1, h3 {
+      h1, h2 {
         font-family: 'Yanone Kaffeesatz';
         font-size: 3em;
         font-weight: 400;
       }
-      h3 {
+      .tilstand h1 {
+        margin-bottom: 0em;
+      }
+      h2 {
         font-size: 2em;
         margin: 0;
         margin-bottom: 10px;
@@ -69,14 +72,14 @@
 
 # Agenda
 
-###Clojure, LISP og JVMen
-###Innebygde datastrukturer
-###Sekvenser
-###Funksjoner
-###Tilstand
-###Makroer
+##Clojure, LISP og JVMen
+##Innebygde datastrukturer
+##Sekvenser
+##Funksjoner
+##Tilstand
+##Makroer
 
-###Spørsmål?
+##Spørsmål?
 
 ---
 
@@ -236,18 +239,19 @@ Elegant løsning vha. sekvensfunksjoner:
     (doubleElements [0 1 2 3])  ; => (0 2 4 6)
 
 ---
+.tilstand
 
 # Tilstand
 
 .left-col[
-### Vars
+## Vars
 Tilstand lokal for tråd, omtrent som globale variabler:
 
     (def x 1)
     (def x (+ 1 x))
 ]
 .right-col[
-### Refs
+## Refs
 Tilstand oppdatert synkront i transaksjoner, f. eks. kontosaldo:
 
     (def x (ref 0))
@@ -255,14 +259,14 @@ Tilstand oppdatert synkront i transaksjoner, f. eks. kontosaldo:
 ]
 <div style="clear: left"></div>
 .left-col[
-### Agents
+## Agents
 Tilstand oppdatert asynkront, f. eks. i.f.m. logging:
 
     (def x (agent 0))
     (send x + 1) ; => #<Agent@..: 1>
 ]
 .right-col[
-### Atoms
+## Atoms
 Tilstand oppdatert synkront, ikke i transaksjoner:
 
     (def x (atom 0))
