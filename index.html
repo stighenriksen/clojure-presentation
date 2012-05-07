@@ -185,7 +185,7 @@ Basis for bibliotek av funksjoner for sekvenser, slik som:
     (second [1 2 3])     ; => 2
     (nth [1 2 3] 2)      ; => 3
 
-    (rest [1 2 3])       ; => 3
+    (last [1 2 3])       ; => 3
     (concat [1 2] [3 4]) ; => (1 2 3 4)
 
     (map ...)
@@ -209,7 +209,7 @@ Definisjon utføres av `fn`, evt. indirekte vha. andre funksjoner/makroer:
     #(+ 2 %) ; => (fn [%] (+ 2 %))
 
     (defn addTwo [a b] 
-      (+ 1 2))
+      (+ a b))
 
     (defn addMany [& args] 
       (apply + args))
