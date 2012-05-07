@@ -54,9 +54,20 @@
         float: right;
         width: 47%;
       }
+      .left-col-40 {
+        float: left;
+        width: 37%;
+      }
+      .right-col-60 {
+        float: right;
+        width: 57%;
+      }
       .footnote {
         position: absolute;
         bottom: 3.5em;
+      }
+      .adjust {
+        padding-bottom: 31px;
       }
     </style>
   </head>
@@ -93,12 +104,13 @@ Datastrukturer som kode i stedet for tekst:
 
     (+ 1 (* 2 3)) ; => 1 + 2 * 3 = 1 + 6 = 7
 
-Uvanlig fleksibelt makrosystem - kode som selv produserer nye strukturer:
+Uvanlig fleksibelt makrosystem - kode behandler kode som datastrukturer:
 
-    (defmacro infix [left operator right]
-      (list operator left right))
-
-    (infix 1 + 2) ; => (+ 1 2) => 1 + 2 = 3
+    (xml                        ; => <xml>
+      (book                     ;      <book>
+        (authors                ;        <authors>
+          (author "Luke")       ;          <author>Luke</author>
+          (author "Stuart"))))  ;          ...
 
 .footnote[.red[*] LISt Processing]
 
@@ -277,7 +289,7 @@ Tilstand oppdatert synkront, ikke i transaksjoner:
 
 # Makroer
 
-.left-col[
+.left-col-40[
 Evaluering av funksjoner:
 
     (+ (+ 2 3) (* 4 5)) 
@@ -293,26 +305,29 @@ Evaluering av funksjoner:
 
 &nbsp;&nbsp;&nbsp;&nbsp;3\. `(+ 5 20)`
 
-    (+ 5 20) ; 25
+    (+ 5 20) ; => 25
 ]
 
-.right-col[
+.right-col-60[
 Evaluering av makroer:
 
-    (when (file? file) (del file))
+    (xml (book (author "Luke")))
 
-&nbsp;&nbsp;&nbsp;&nbsp;1\. Makro genererer ny kode:
+&nbsp;&nbsp;&nbsp;&nbsp;1\. Makro ekspanderes og ny kode returneres:
 
-    (if (file? file) (del file))
+    .adjust
+    (defn xml-helper [form]
+      (if (not (seq? form))
+        (str form)
+        (let [name (first form)
+              children (rest form)]
+          (str "<" name ">"
+               (apply str 
+                 (map xml-helper children))
+               "</" name ">"))))
 
-&nbsp;&nbsp;&nbsp;&nbsp;2\. `if` er innebygget funksjon
-
-    (file? file) ; => false
-
-&nbsp;&nbsp;&nbsp;&nbsp;3\. `(del file)` evalueres aldri
-
-    (defmacro when [test body]
-      (list 'if test body))
+    (defmacro xml [form]
+      (xml-helper form))
 
 ]
 
