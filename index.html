@@ -24,9 +24,6 @@
         font-size: 3em;
         font-weight: 400;
       }
-      .tilstand h1 {
-        margin-bottom: 0em;
-      }
       h2 {
         font-size: 2em;
         margin: 0;
@@ -64,7 +61,7 @@
       }
       .footnote {
         position: absolute;
-        bottom: 3.5em;
+        bottom: 1.5em;
       }
       .adjust {
         padding-bottom: 31px;
@@ -79,21 +76,6 @@
 
 ---
 
-.blur
-
-# Agenda
-
-##Clojure, LISP og JVMen
-##Innebygde datastrukturer
-##Sekvenser
-##Funksjoner
-##Tilstand
-##Makroer
-
-##Spørsmål?
-
----
-
 # Clojure er en LISP.red[*]-dialekt
 
 Prefiks-notasjon i stedet for infiks-notasjon:
@@ -104,95 +86,116 @@ Datastrukturer som kode i stedet for tekst:
 
     (+ 1 (* 2 3)) ; => 1 + 2 * 3 = 1 + 6 = 7
 
-Uvanlig fleksibelt makrosystem - kode behandler kode som datastrukturer:
+Funksjonskall er vanlige lister med funksjon og argumenter:
 
-    (xml                        ; => <xml>
-      (book                     ;      <book>
-        (authors                ;        <authors>
-          (author "Luke")       ;          <author>Luke</author>
-          (author "Stuart"))))  ;          ...
+    (some-function arg1 arg2 (another-function arg3 arg4))
+
+Clojure har flere datastrukturer enn andre LISP-dialekter, slik som vektorer:
+
+    [1 2 3 4]
 
 .footnote[.red[*] LISt Processing]
 
 ---
 
-# Clojure er implementert på JVMen.red[*]
+# Deklarering og kall av funksjoner
 
-Om man "oversetter" direkte fra Java kan man like gjerne bruke Java:
+Enkel funksjon for å duplisere et tall:
 
-    (def numbers (new java.util.ArrayList)) ; => #<ArrayList []>
-    (. numbers add 1)
-    (. numbers add 2)
-    (. numbers add 3)
-    ; numbers => #<ArrayList [1, 2, 3]>
+    (defn double [x] (+ x x))
 
-Men bruk av idiomatisk Clojure kan gi det beste fra begge verdener:
+    (double 1) ; => 2
 
-    (map (memfn toUpperCase) ["a" "short" "message"])
-    ; => ("A" "SHORT" "MESSAGE")
+Og en annen funksjon for å multiplisere to tall:
 
-.footnote[.red[*] En sekundær implementasjon finnes også til CLRen.]
+    (defn multiply [x y] (* x y))
 
----
+    (multiply 2 3) ; => 6
 
-# Innebygde datastrukturer (1/2)
+Og en tredje funksjon for å kombinere de to foregående:
 
-`nil` - representert ved `null`:
+    (defn multiply-and-double [x y]
+      (double (multiply x y)))
 
-    (if nil "nil is true" "nil is false") ; => "nil is false"
-
-Tall - støtter alle JVM-primitiver, samt mer eksotiske konstruksjoner:
-
-    (/ 22 7) ; => 22/7
-
-Strenger og tegn - representert ved `String` og `char`:
-
-    (str "Hello" " world!") ; => "Hello world!"
-
-Nøkkelord - evaluerer til seg selv og brukes som nøkler, à la symboler i Ruby:
-
-    (:a {:a 1 :b 2}) ; => 1
+    (multiply-and-double 2 3) ; => 12
 
 ---
 
-# Innebygde datastrukturer (2/2)  
+# Kontrollflyt og iterasjon vha. funksjoner
 
-.left-col[
-Lister:
-  
-    (list 1 2 3) ; => (1 2 3)
-    '(1 2 3)     ; => (1 2 3)
-]
-.right-col[
-Vektorer:
-  
-    (vec 1 2 3) ; => [1 2 3]
-    [1 2 3]     ; => [1 2 3]
-]
+Enkel funksjon som returnerer det største av to tall:
 
-<div style="clear: both"></div>
+    (defn max [x y] 
+      (if (> x y)
+        x
+        y))
 
-Maps:
+    (max 1 2) ; => 2
 
-    (hash-map :a 1 :b 2) ; => {:a 1, :b 2}
-    {:a 1 :b 2}          ; => {:a 1, :b 2}
+Enkel funksjon som bruker rekursjon til å summere tall:
 
-Sett:
+    (defn sum [nums]
+      (if (= 0 (count nums))
+        0
+        (+ (first nums) (sum rest))))
 
-    (hash-set 1 2 3) ; => #{1 2 3}
-    #{1 2 3}         ; => #{1 2 3}
+    (sum 1 2 3) ; => 6
 
 ---
 
-# Sekvenser
+# Få, enkle og fleksible datastrukturer
 
-Felles grensesnitt implementert av **lister**, **vektorer**, **maps**, **sett** m.fl.:
+Enkle datastrukturer som lister / vektorer og nøkkel-verdi-par gir stor fleksibilitet:
+
+- Få datastrukturer å forholde seg til
+- Enkle å bruke - syntaktisk støtte
+- Kan representere de fleste data
+
+
+    (def twitter-profile-data {
+      :user "some-user"
+      :tweets [
+        {:text "another tweet" :time "2012.09.18 11:00"}
+        {:text "some tweet" :time "2012.09.18 10:00"}
+      ]
+    })
+
+
+Oppslag i nøkkel-verdi-par gjøres ved å kalle nøklene som funksjoner:
+
+    (:time (first (:tweets twitter-profile-data)))
+
+---
+
+# Funksjonell programmering (1/2)
+
+Funksjoner er på nivå med ordinære verdier, som kan brukes som argumenter:
+
+    (defn double [x] (+ x x))
+
+    (map double [0 1 2 3]) ; => [0 2 4 6]
+
+.. og som returverdi fra funksjoner:
+
+    (defn make-multiplier [x]
+      (fn [y] (* y x)))
+
+    (def triple (make-multiplier 3))
+
+    (map triple [0 1 2 3]) ;=> [0 3 6 9]
+
+---
+
+# Funksjonell programmering (2/2)
+
+Standard sett med funksjoner for å behandle lister / vektorer og nøkkel-verdi-par:
 
     (first [1 2 3]) ; => 1
     (rest  [1 2 3]) ; => (2 3)
     (cons  1 [2 3]) ; => (1 2 3)
 
-Basis for bibliotek av funksjoner for sekvenser, slik som:
+
+Ved hjelp av de tre funksjonene, er en rekke andre funksjoner implementert:
 
     (second [1 2 3])     ; => 2
     (nth [1 2 3] 2)      ; => 3
@@ -207,92 +210,53 @@ Basis for bibliotek av funksjoner for sekvenser, slik som:
 
 ---
 
-# Funksjoner
-
-Kall er lister med funksjon etterfulgt av argumenter:
-
-    (func  arg1 arg2 arg3)
-    (apply func arg1 [arg2 arg3]) ; => (func arg1 arg2 arg3)
-
-Definisjon utføres av `fn`, evt. indirekte vha. andre funksjoner/makroer:
-
-    (fn [a b] (+ a b))
-
-    #(+ 2 %) ; => (fn [%] (+ 2 %))
-
-    (defn addTwo [a b] 
-      (+ a b))
-
-    (defn addMany [& args] 
-      (apply + args))
-
----
-
 # Eksempel
 
-Klumpete Java-metode for å returnere kopi av liste med hvert element doblet:
+Klumpete Java-metode for å returnere alle små bokstaver fra streng:
 
     .java
-    int[] doubleElements (int[] someArray) {
-      int[] newArray = new int[someArray.length];
-
-      for (int i = 0; i < someArray.length; i++) {
-        newArray[i] = someArray[i] * 2;
+    public static ArrayList<Character> getLower(String s) {
+      ArrayList<Character> chars = new ArrayList<Character>();
+      for (int i = 0; i < s.length(); i++) {
+        char ch = s.charAt(i);
+        if (Character.isLowerCase(ch)) {
+            chars.append(ch);
+        }
       }
-
-      return newArray;
+      return chars;
     }
 
-Elegant løsning vha. sekvensfunksjoner:
+Med funksjonell programmering løses dette langt enklere:
 
-    (defn doubleElements [list]
-      (map #(* 2 %)) list)
+    (defn get-lower [s]
+      (apply str (filter #(Character/isLowerCase %) s)))
 
-    (doubleElements [0 1 2 3])  ; => (0 2 4 6)
-
----
-.tilstand
-
-# Tilstand
-
-.left-col[
-## Vars
-Tilstand lokal for tråd, omtrent som globale variabler:
-
-    (def x 1)
-    (def x (+ 1 x))
-]
-.right-col[
-## Refs
-Tilstand oppdatert synkront i transaksjoner, f. eks. kontosaldo:
-
-    (def x (ref 0))
-    (dosync (alter x + 1)) ; => 1
-]
-<div style="clear: left"></div>
-.left-col[
-## Agents
-Tilstand oppdatert asynkront, f. eks. i.f.m. logging:
-
-    (def x (agent 0))
-    (send x + 1) ; => #<Agent@..: 1>
-]
-.right-col[
-## Atoms
-Tilstand oppdatert synkront, ikke i transaksjoner:
-
-    (def x (atom 0))
-    (swap! x + 1) ; => 1
-]
 
 ---
 
-# Makroer
+# Makroer (1/2)
+
+Uvanlig fleksibelt makrosystem - kode behandler kode som datastrukturer:
+
+- Makroer er spesielle funksjoner som tar inn og returnerer datastrukturer
+- Ved kall sendes argumenter inn uten å evalueres
+- Makroens kode lager ny datastruktur som skal kjøres i dens sted
+
+
+    (xml                        ; => "<xml>
+      (book                     ;      <book>
+        (authors                ;        <authors>
+          (author "Luke")       ;          <author>Luke</author>
+          (author "Stuart"))))  ;          ...
+
+---
+
+# Makroer (2/2)
 
 .left-col-40[
 Evaluering av funksjoner:
 
-    (+ (+ 2 3) (* 4 5)) 
+    (+ (+ 2 3) (* 4 5))
 
 &nbsp;&nbsp;&nbsp;&nbsp;1\. `(+ 2 3)`
 
@@ -300,8 +264,8 @@ Evaluering av funksjoner:
     (+ 5 (* 4 5))
 
 &nbsp;&nbsp;&nbsp;&nbsp;2\. `(* 4 5)`
- 
-    (+ 5 20) 
+
+    (+ 5 20)
 
 &nbsp;&nbsp;&nbsp;&nbsp;3\. `(+ 5 20)`
 
@@ -322,7 +286,7 @@ Evaluering av makroer:
         (let [name (first form)
               children (rest form)]
           (str "<" name ">"
-               (apply str 
+               (apply str
                  (map xml-helper children))
                "</" name ">"))))
 
@@ -333,8 +297,28 @@ Evaluering av makroer:
 
 ---
 
+# Clojure er implementert på JVMen.red[*]
+
+Om man "oversetter" direkte fra Java kan man like gjerne bruke Java:
+
+    (def numbers (new java.util.ArrayList)) ; => #<ArrayList []>
+    (. numbers add 1)
+    (. numbers add 2)
+    (. numbers add 3)
+    ; numbers => #<ArrayList [1, 2, 3]>
+
+Men bruk av idiomatisk Clojure kan gi det beste fra begge verdener:
+
+    (map (memfn toUpperCase) ["a" "short" "message"])
+    ; => ("A" "SHORT" "MESSAGE")
+
+.footnote[.red[*] En implementasjon finnes også til CLRen.]
+
+---
+
 .middle.blur
 # Spørsmål?
+
 
     </textarea>
     <div id="slideshow"></div>
