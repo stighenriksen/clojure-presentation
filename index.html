@@ -9,7 +9,27 @@
       { "highlightStyle": "monokai", "highlightLanguage": "clojure", "highlightInline": true }
     </script>
     <script type="text/javascript">
+      // Create hljs variable for clojure.js to extend
       var hljs = remark.highlighter.engine();
+
+      // Simple timer
+      var timerElement;
+      remark.on('slidein', function (el, idx) {
+        if (idx === 1) {
+          if (timerElement === undefined) {
+            timerElement = document.createElement('div');
+            timerElement.className = 'position';
+            timerElement.style.left = '20px';
+            document.getElementById('slideshow').appendChild(timerElement);
+
+            var start = Date.now();
+            setInterval(function () {
+              timerElement.innerHTML = Math.floor((Date.now() - start) / 60000) +
+                ' min';
+            }, 1000);
+          }
+        }
+      });
     </script>
     <script src="clojure.js" type="text/javascript"></script>
     <style type="text/css" media="screen">
