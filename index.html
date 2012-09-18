@@ -240,7 +240,7 @@ Klumpete Java-metode for å returnere alle små bokstaver fra streng:
       for (int i = 0; i < s.length(); i++) {
         char ch = s.charAt(i);
         if (Character.isLowerCase(ch)) {
-            chars.append(ch);
+            chars.add(ch);
         }
       }
       return chars;
