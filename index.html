@@ -110,7 +110,7 @@ Funksjonskall er vanlige lister med funksjon og argumenter:
 
     (some-function arg1 arg2 (another-function arg3 arg4))
 
-Clojure har flere datastrukturer enn andre LISP-dialekter, slik som vektorer:
+Clojure skiller seg ut fra mange LISP-dialekter med alternativ syntaks for datastrukturer:
 
     [1 2 3 4]
 
@@ -249,7 +249,7 @@ Klumpete Java-metode for å returnere alle små bokstaver fra streng:
 Med funksjonell programmering løses dette langt enklere:
 
     (defn get-lower [s]
-      (apply str (filter #(Character/isLowerCase %) s)))
+      (filter #(Character/isLowerCase %) s))
 
 
 ---
