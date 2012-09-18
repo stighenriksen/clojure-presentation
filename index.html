@@ -157,7 +157,7 @@ Enkel funksjon som bruker rekursjon til å summere tall:
     (defn sum [nums]
       (if (= 0 (count nums))
         0
-        (+ (first nums) (sum rest))))
+        (+ (first nums) (sum (rest nums)))))
 
     (sum 1 2 3) ; => 6
 
@@ -168,7 +168,7 @@ Enkel funksjon som bruker rekursjon til å summere tall:
 Enkle datastrukturer som lister / vektorer og nøkkel-verdi-par gir stor fleksibilitet:
 
 - Få datastrukturer å forholde seg til
-- Enkle å bruke - syntaktisk støtte
+- Enkle å bruke &mdash; syntaktisk støtte
 - Kan representere de fleste data
 
 
@@ -195,7 +195,7 @@ Funksjoner er på nivå med ordinære verdier, som kan brukes som argumenter:
 
     (map double [0 1 2 3]) ; => [0 2 4 6]
 
-.. og som returverdi fra funksjoner:
+&hellip; og som returverdi fra funksjoner:
 
     (defn make-multiplier [x]
       (fn [y] (* y x)))
